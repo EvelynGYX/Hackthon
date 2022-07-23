@@ -20,27 +20,29 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  indexAxis: "y",
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  scales: {
-    yAxes: {
-      ticks: {
+export const options = (showYAxes) => {
+  return {
+    indexAxis: "y",
+    responsive: true,
+    plugins: {
+      legend: {
         display: false,
       },
     },
-    xAxes: {
-      ticks: {
-        display: true,
-        beginAtZero: true,
+    scales: {
+      yAxes: {
+        ticks: {
+          display: showYAxes,
+        },
+      },
+      xAxes: {
+        ticks: {
+          display: true,
+          beginAtZero: true,
+        },
       },
     },
-  },
+  };
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
@@ -50,7 +52,9 @@ export const data = {
   datasets: [
     {
       label: "Dataset 1",
-      data: labels.map(() => faker.datatype.number({ min: -1, max: 1, precision: 1 })),
+      data: labels.map(() =>
+        faker.datatype.number({ min: -1, max: 1, precision: 1 })
+      ),
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
@@ -63,8 +67,8 @@ export const data = {
   ],
 };
 
-const BarChart = () => {
-  return <Bar options={options} data={data} />;
+const BarChart = ({showYAxes}) => {
+  return <Bar options={options(showYAxes)} data={data} />;
 };
 
 export default BarChart;
